@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  load_balancer:
+    build: .
+    ports:
+      - '8080:8080'
+    networks:
+      - lb-net
+    depends_on:
+      - app1
+      - app2
+
+  app1:
+    image: hashicorp/http-echo
+    command: ['-text=hello from app1']
+    networks:
+      - lb-net
+
+  app2:
+    image: hashicorp/http-echo
+    command: ['-text=hello from app2']
+    networks:
+      - lb-net
+  app3:
+    image: hashicorp/http-echo
+    command: ['-text=hello from app3']
+    networks:
+      - lb-net
+
+  app4:
+    image: hashicorp/http-echo
+    command: ['-text=hello from app4']
+    networks:
+      - lb-net
+
+networks:
+  lb-net:
